@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  mysql:
+    image: 'mysql:latest'
+    restart: always
+    environment:
+      - 'MYSQL_DATABASE=dreamer'
+      - 'MYSQL_PASSWORD=Giobero140206'
+      - 'MYSQL_ROOT_PASSWORD=Giobero140206MYSQL'
+      - 'MYSQL_USER=beru'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - database:/var/lib/mysql
+volumes:
+  database: 
