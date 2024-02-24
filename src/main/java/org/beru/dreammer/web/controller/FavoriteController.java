@@ -23,14 +23,8 @@ public class FavoriteController {
         return ResponseEntity.ok(favoriteService.addFavorite(entity));
     }
 
-    @GetMapping
-    public ResponseEntity<List<FavoriteEntity>> getFavorites( ) {
-        return ResponseEntity.ok(favoriteService.getFavorites());
-    }
-
-
     @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> deleteFavorite(@RequestParam UserDreamId id) {
+    public ResponseEntity<Boolean> deleteFavorite(@RequestParam String id) {
         favoriteService.deleteFavorite(id);
         return ResponseEntity.ok(true);
     }

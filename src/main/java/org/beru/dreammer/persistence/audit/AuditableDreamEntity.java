@@ -1,9 +1,7 @@
 package org.beru.dreammer.persistence.audit;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
 
