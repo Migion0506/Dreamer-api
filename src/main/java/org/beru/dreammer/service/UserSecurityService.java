@@ -20,15 +20,15 @@ private final UserRepository userRepository;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         try {
-            UserEntity userEntity = this.userRepository.findByUsernameOrEmail(username, username)
+            UserEntity userEntity = this.userRepository.findById(username)
                     .orElseThrow(() -> new RuntimeException(
                             String.format("Username: %s not found", username)));
             return User
                     .builder()
                     .username(userEntity.getUsername())
                     .password(userEntity.getPassword())
-                    .accountLocked(false)
-                    .disabled(false)
+                    .accountLocked(userEntity.isLocked())
+                    .disabled(userEntity.isDisabled())
                     .build();
         } catch (Exception e) {
             throw new RestRequestEntityExceptionHandler(e.getLocalizedMessage());

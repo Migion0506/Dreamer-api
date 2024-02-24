@@ -17,13 +17,14 @@ import java.util.*;
 
 import org.beru.dreammer.persistence.audit.AuditUserListener;
 import org.beru.dreammer.persistence.audit.AuditableUserEntity;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @Getter
 @Setter
 @ToString
 @Table(name = "users")
-@EntityListeners(AuditUserListener.class)
+@EntityListeners({AuditingEntityListener.class, AuditUserListener.class})
 public class UserEntity extends AuditableUserEntity{
     @Id
     @NotBlank(message = "Username is required")
@@ -47,5 +48,13 @@ public class UserEntity extends AuditableUserEntity{
     private String gender;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private List<DreamEntity> dreams;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<FavoriteEntity> favorites;
+
+    @OneToMany(mappedBy = "followers", fetch = FetchType.EAGER)
+    private List<FollowEntity> followers;
+    @OneToMany(mappedBy = "followings", fetch = FetchType.EAGER)
+    private List<FollowEntity> followings;
 }

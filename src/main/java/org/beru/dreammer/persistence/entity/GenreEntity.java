@@ -24,7 +24,7 @@ public class GenreEntity {
     private String dreamId;
 
     @ManyToOne
-    @JoinColumn(name = "dream_id", referencedColumnName = "dream_id", insertable = false, updatable = false)
+    @JoinColumn(name = "dream_id", referencedColumnName = "id", insertable = false, updatable = false)
     @JsonIgnore
     private DreamEntity dream;
 }

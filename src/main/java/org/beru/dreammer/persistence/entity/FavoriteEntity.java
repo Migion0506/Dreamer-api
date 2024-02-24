@@ -1,9 +1,12 @@
 package org.beru.dreammer.persistence.entity;
 
+import org.beru.dreammer.persistence.audit.AuditableDreamEntity;
 import org.beru.dreammer.persistence.entity.id.UserDreamId;
-import org.hibernate.annotations.UuidGenerator;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;
 import jakarta.persistence.JoinColumn;
@@ -18,16 +21,14 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@IdClass(UserDreamId.class)
-public class FavoriteEntity {
+@EntityListeners({AuditingEntityListener.class})
+public class FavoriteEntity extends AuditableDreamEntity {
     @Id
-    @UuidGenerator
-    private String id;
-    private String username;
+    @Column(nullable = false, length = 50)
     private String dream;
 
     @ManyToOne
-    @JoinColumn(name = "username", referencedColumnName = "username", insertable = false, updatable = false)
+    @JoinColumn(name = "created_by", referencedColumnName = "username", insertable = false, updatable = false)
     private UserEntity user;
 
     @ManyToOne

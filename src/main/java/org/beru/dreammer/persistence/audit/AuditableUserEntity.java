@@ -15,8 +15,10 @@ import java.time.*;
 @Setter
 public class AuditableUserEntity {
     @CreatedDate
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
     @LastModifiedDate
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
     @Column(name = "is_locked", columnDefinition = "TINYINT(1) DEFAULT 0")
     private boolean isLocked;
