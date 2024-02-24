@@ -41,6 +41,7 @@ public class DreamEntity extends AuditableDreamEntity{
     private String pictureUrl;
 
     @OneToMany(mappedBy = "dreamEntity", fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<FavoriteEntity> favorites;
 
     @ManyToOne

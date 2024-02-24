@@ -1,5 +1,6 @@
 package org.beru.dreammer.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
@@ -51,6 +52,7 @@ public class UserEntity extends AuditableUserEntity{
     private List<DreamEntity> dreams;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<FavoriteEntity> favorites;
 
     @OneToMany(mappedBy = "followers", fetch = FetchType.EAGER)
