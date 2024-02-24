@@ -1,14 +1,12 @@
 package org.beru.dreammer.persistence.entity;
 
 import org.beru.dreammer.persistence.audit.AuditableDreamEntity;
-import org.beru.dreammer.persistence.entity.id.UserDreamId;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.Id;
-import jakarta.persistence.IdClass;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;

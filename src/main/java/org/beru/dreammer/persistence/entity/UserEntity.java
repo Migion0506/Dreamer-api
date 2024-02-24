@@ -19,6 +19,8 @@ import org.beru.dreammer.persistence.audit.AuditUserListener;
 import org.beru.dreammer.persistence.audit.AuditableUserEntity;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Getter
 @Setter
@@ -51,6 +53,7 @@ public class UserEntity extends AuditableUserEntity{
     private List<DreamEntity> dreams;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<FavoriteEntity> favorites;
 
     @OneToMany(mappedBy = "followers", fetch = FetchType.EAGER)
