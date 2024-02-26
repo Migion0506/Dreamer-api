@@ -1,15 +1,11 @@
 package org.beru.dreammer.web.controller;
 
 import org.beru.dreammer.persistence.entity.FavoriteEntity;
-import org.beru.dreammer.persistence.entity.UserEntity;
-import org.beru.dreammer.persistence.entity.id.UserDreamId;
 import org.beru.dreammer.service.FavoriteService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import lombok.AllArgsConstructor;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/favorite")
