@@ -53,6 +53,9 @@ public class UserEntity extends AuditableUserEntity{
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<FavoriteEntity> favorites;
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private List<CommentEntity> comments;
+
     @OneToMany(mappedBy = "followers", fetch = FetchType.EAGER)
     private List<FollowEntity> followers;
     @OneToMany(mappedBy = "followings", fetch = FetchType.EAGER)

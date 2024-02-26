@@ -43,6 +43,9 @@ public class DreamEntity extends AuditableDreamEntity{
     @OneToMany(mappedBy = "dreamEntity", fetch = FetchType.EAGER)
     private List<FavoriteEntity> favorites;
 
+    @OneToMany(mappedBy = "dream", fetch = FetchType.EAGER)
+    private List<CommentEntity> comments;
+
     @ManyToOne
     @JoinColumn(name = "created_by", referencedColumnName = "username", insertable = false, updatable = false)
     @JsonIgnore
