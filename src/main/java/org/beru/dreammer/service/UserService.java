@@ -1,6 +1,7 @@
 package org.beru.dreammer.service;
 
 import org.beru.dreammer.exception.RestRequestEntityExceptionHandler;
+import org.beru.dreammer.persistence.entity.MessageEntity;
 import org.beru.dreammer.persistence.entity.UserEntity;
 import org.beru.dreammer.persistence.repository.StorageRepository;
 import org.beru.dreammer.persistence.repository.UserRepository;
@@ -39,7 +40,15 @@ public class UserService {
     @SuppressWarnings("null")
     public UserEntity getAccount(){
         String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
-        return repository.findById(username).orElseThrow(() -> new RestRequestEntityExceptionHandler("User not found with specified id or Token invalid"));
+        UserEntity rta = repository.findById(username).orElseThrow(() -> new RestRequestEntityExceptionHandler("User not found with specified id or Token invalid"));
+        return rta;
+    }
+    public List<UserEntity> findMembersInChat(String chatId){
+        try{
+            return repository.findMembersInChat(chatId);
+        }catch(Exception e){
+            throw new RestRequestEntityExceptionHandler(e.getLocalizedMessage());
+        }
     }
     public Iterable<UserEntity> findAll(){
         return repository.findAll();

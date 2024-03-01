@@ -20,9 +20,9 @@ public class FavoriteService {
         }
     }
 
-    public void deleteFavorite(String favorite) {
+    public void deleteFavorite(String id) {
         try {
-            repository.deleteById(favorite);
+            repository.deleteById(id);
         } catch (Exception e) {
             throw new RestRequestEntityExceptionHandler(e.getMessage());
         }

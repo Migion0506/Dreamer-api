@@ -20,7 +20,7 @@ public class FavoriteController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> deleteFavorite(@RequestParam String id) {
+    public ResponseEntity<Boolean> deleteFavorite(@PathVariable String id) {
         favoriteService.deleteFavorite(id);
         return ResponseEntity.ok(true);
     }

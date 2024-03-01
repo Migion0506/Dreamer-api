@@ -8,20 +8,22 @@ import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.*;
 
 @Getter
 @Setter
 @MappedSuperclass
+@ToString
 public class AuditableMessageEntity {
-    @Column(name = "created_at", nullable = false, updatable = false)
+    @Column(name = "created_at")
     @CreatedDate
     private LocalDateTime createdAt;
-    @Column(name = "created_by", nullable = false, updatable = false)
+    @Column(name = "created_by")
     @CreatedBy
     private String createdBy;
-    @Column(name = "updated_at", nullable = false)
+    @Column(name = "updated_at")
     @LastModifiedBy
     private LocalDateTime updatedAt;
 }

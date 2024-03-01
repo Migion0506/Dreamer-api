@@ -7,12 +7,15 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -20,19 +23,22 @@ import lombok.ToString;
 @Setter
 @ToString
 @AllArgsConstructor
+@NoArgsConstructor
 @EntityListeners({AuditingEntityListener.class})
+@Entity
+@Table(name = "messages")
 public class MessageEntity extends AuditableMessageEntity{
     @Id
     @UuidGenerator
     private String id;
 
-    @Column(name = "follow_id", nullable = false, updatable = false)
-    private String followId;
+    @Column(name = "chat_id", nullable = false)
+    private String chatId;
 
     private String text;
 
     @ManyToOne
-    @JoinColumn(name = "follow_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "chat_id", referencedColumnName = "id", insertable = false, updatable = false)
     @JsonIgnore
-    private FollowEntity follow;
+    private ChatEntity chat;
 }

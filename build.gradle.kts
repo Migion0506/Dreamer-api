@@ -29,6 +29,8 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-websocket")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
 	implementation("com.auth0:java-jwt:4.4.0")
+	implementation("org.springframework:spring-messaging")
+	implementation("org.springframework.security:spring-security-messaging")
 	implementation("com.fasterxml.jackson.core:jackson-databind")
 	compileOnly("org.projectlombok:lombok")
 	runtimeOnly("com.mysql:mysql-connector-j")

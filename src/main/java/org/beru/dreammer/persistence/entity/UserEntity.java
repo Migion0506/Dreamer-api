@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -18,6 +19,8 @@ import java.util.*;
 import org.beru.dreammer.persistence.audit.AuditUserListener;
 import org.beru.dreammer.persistence.audit.AuditableUserEntity;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Getter
@@ -46,12 +49,9 @@ public class UserEntity extends AuditableUserEntity{
     @Column(name = "is_dreamer", columnDefinition = "TINYINT(1) DEFAULT 1")
     private boolean isDreamer;
     private String gender;
-
-    @OneToMany(mappedBy = "createdBy", fetch = FetchType.EAGER)
-    List<ChatEntity> chats;
     
-    @OneToMany(mappedBy = "createdTo", fetch = FetchType.EAGER)
-    List<ChatEntity> iChats;
+    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
+    private List<ChatEntity> chats = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<DreamEntity> dreams;

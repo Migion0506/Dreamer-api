@@ -2,7 +2,6 @@ package org.beru.dreammer.persistence.entity;
 
 import jakarta.persistence.*;
 import org.beru.dreammer.persistence.audit.AuditableDreamEntity;
-import org.beru.dreammer.persistence.entity.id.UserDreamId;
 import org.hibernate.annotations.UuidGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -13,7 +12,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "favorites")
+@Table(name = "favorites", uniqueConstraints = @UniqueConstraint(columnNames = {"created_by", "dream"}))
 @Getter
 @Setter
 @ToString
