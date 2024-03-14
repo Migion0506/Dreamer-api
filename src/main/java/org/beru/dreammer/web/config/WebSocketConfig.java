@@ -1,6 +1,8 @@
 package org.beru.dreammer.web.config;
 
+
 import org.beru.dreammer.exception.RestRequestEntityExceptionHandler;
+import org.beru.dreammer.persistence.entity.CommentEntity;
 import org.beru.dreammer.service.dto.MessageDto;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
@@ -19,9 +21,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import lombok.AllArgsConstructor;
 import java.time.*;
 
@@ -40,8 +40,8 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/chat").setAllowedOriginPatterns("*");
-        registry.addEndpoint("/chat").setAllowedOriginPatterns("*")
+        registry.addEndpoint("/chat" , "/dream").setAllowedOrigins("http://localhost:3000").setAllowedOriginPatterns("*");
+        registry.addEndpoint("/chat" , "/dream").setAllowedOriginPatterns("*").setAllowedOrigins("http://localhost:3000")
                 .withSockJS();
     }
 
@@ -56,14 +56,23 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
                     if (StompCommand.CONNECT.equals(accessor.getCommand())) {
                         create(accessor);
                     }
-                    if (StompCommand.SEND.equals(accessor.getCommand()) && accessor.getDestination().contains("send")) {
+                    if (StompCommand.SEND.equals(accessor.getCommand())) {
                         User user = create(accessor);
                         byte[] originalPayload = (byte[]) message.getPayload();
                         ObjectMapper objectMapper = new ObjectMapper();
-                        MessageDto messageDto = (MessageDto) objectMapper.readValue(new String(originalPayload), MessageDto.class);
-                        messageDto.setCreatedBy(user.getUsername());
-                        messageDto.setCreatedAt(LocalDateTime.now());
-                        message = MessageBuilder.createMessage(messageDto, accessor.toMessageHeaders());
+                        if (accessor.getDestination().contains("send") && accessor.getDestination().contains("chat")){
+                            MessageDto messageDto = (MessageDto) objectMapper.readValue(new String(originalPayload), MessageDto.class);
+                            messageDto.setCreatedBy(user.getUsername());
+                            messageDto.setCreatedAt(LocalDateTime.now());
+                            message = MessageBuilder.createMessage(messageDto, accessor.toMessageHeaders());
+                        }
+                        if ( accessor.getDestination().contains("comment")  && accessor.getDestination().contains("dream")){
+                            CommentEntity commentEntity = (CommentEntity) objectMapper.readValue(new String(originalPayload), CommentEntity.class);
+                            commentEntity.setCreatedBy(user.getUsername());
+                            commentEntity.setCreatedAt(LocalDateTime.now());
+                            message = MessageBuilder.createMessage(commentEntity, accessor.toMessageHeaders());
+                        }
+
                     }
                     return message;
                 } catch (Exception e) {

@@ -33,6 +33,8 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/users").permitAll()
                 .requestMatchers(HttpMethod.GET, "/chat").permitAll()
                 .requestMatchers(HttpMethod.GET, "/chat/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/dream").permitAll()
+                .requestMatchers(HttpMethod.GET, "/dream/**").permitAll()
                 .anyRequest().authenticated();
             })
             .csrf(AbstractHttpConfigurer::disable)
