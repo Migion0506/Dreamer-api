@@ -4,10 +4,7 @@ import org.beru.dreammer.persistence.audit.AuditableDreamEntity;
 import org.hibernate.annotations.UuidGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
@@ -18,6 +15,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,7 +41,8 @@ public class ChatEntity extends AuditableDreamEntity{
     @JoinTable(
         name = "users_chats",
         joinColumns = @JoinColumn(name = "chat_id"),
-        inverseJoinColumns = @JoinColumn(name = "username")
+        inverseJoinColumns = @JoinColumn(name = "username"),
+        uniqueConstraints = @UniqueConstraint(columnNames = {"chat_id", "username"})
     )
     @JsonIgnore
     private List<UserEntity> users = new ArrayList<>();

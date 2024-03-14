@@ -26,10 +26,10 @@ public class MessageSocketController {
         messageEntity.setCreatedAt(message.getCreatedAt());
         return service.save(messageEntity);
     }
-    @MessageMapping("/chat/{chatId}/delete")
+    @MessageMapping("/chat/{chatId}/delete/{messageId}")
     @SendTo("/topic/delete/{chatId}")
-    public MessageDto delete(@DestinationVariable String chatId, MessageDto message){
-        service.delete(message.getId());
-        return message;
+    public String delete(@DestinationVariable String chatId, @DestinationVariable String messageId){
+        service.delete(messageId);
+        return messageId;
     }
 }

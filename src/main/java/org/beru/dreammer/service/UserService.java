@@ -43,6 +43,20 @@ public class UserService {
         UserEntity rta = repository.findById(username).orElseThrow(() -> new RestRequestEntityExceptionHandler("User not found with specified id or Token invalid"));
         return rta;
     }
+    public List<UserEntity> discover(){
+        try {
+            return repository.findAllByOrderByCreatedAtDesc();
+        } catch (Exception e) {
+            throw new RestRequestEntityExceptionHandler(e.getLocalizedMessage());
+        }
+    }
+    public UserEntity findOne(String username){
+        try {
+            return repository.findById(username).orElseThrow(() -> new RuntimeException("User: " + username + " Not found!"));
+        } catch (Exception e) {
+            throw new RestRequestEntityExceptionHandler(e.getLocalizedMessage());
+        }
+    }
     public List<UserEntity> findMembersInChat(String chatId){
         try{
             return repository.findMembersInChat(chatId);

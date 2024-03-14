@@ -40,8 +40,8 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/chat").setAllowedOrigins("http://localhost:3000").setAllowedOriginPatterns("*");
-        registry.addEndpoint("/chat").setAllowedOriginPatterns("*").setAllowedOrigins("http://localhost:3000")
+        registry.addEndpoint("/chat").setAllowedOriginPatterns("*");
+        registry.addEndpoint("/chat").setAllowedOriginPatterns("*")
                 .withSockJS();
     }
 
@@ -52,7 +52,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
             public Message<?> preSend(Message<?> message, MessageChannel channel) {
                 try {
                     StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(message,
-                            StompHeaderAccessor.class);
+                    StompHeaderAccessor.class);
                     if (StompCommand.CONNECT.equals(accessor.getCommand())) {
                         create(accessor);
                     }

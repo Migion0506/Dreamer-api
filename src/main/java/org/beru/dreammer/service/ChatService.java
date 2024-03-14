@@ -21,6 +21,10 @@ public class ChatService {
     public ChatEntity save(String userSecondary) {
         try{
             String userPrincipal = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+            ChatEntity data = chatRepository.checkIfExists(userSecondary, userPrincipal);
+            if(data != null){
+                return data;
+            }
             UserEntity user1 = userRepository.findById(userPrincipal).get();
             UserEntity user2 = userRepository.findById(userSecondary).get();
             ChatEntity entity = new ChatEntity();

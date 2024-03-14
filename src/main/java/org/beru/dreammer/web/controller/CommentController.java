@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 
 @RestController
 @RequestMapping("/comments")
+@CrossOrigin
 @AllArgsConstructor
 public class CommentController {
     private final CommentService commentService;

@@ -5,6 +5,7 @@ import org.beru.dreammer.persistence.entity.FollowEntity;
 import org.beru.dreammer.persistence.repository.FollowRepository;
 import org.springframework.stereotype.Service;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -19,9 +20,10 @@ public class FollowService {
             throw new RestRequestEntityExceptionHandler(e.getMessage());
         }
     }
-    public void unFollow(String username) {
+    @Transactional
+    public Long unFollow(String username) {
         try{
-            followRepository.deleteById(username);
+            return followRepository.deleteByFollowing(username);
         }catch(Exception e){
             throw new RestRequestEntityExceptionHandler(e.getMessage());
         }

@@ -18,9 +18,8 @@ import java.util.*;
 
 import org.beru.dreammer.persistence.audit.AuditUserListener;
 import org.beru.dreammer.persistence.audit.AuditableUserEntity;
+import org.hibernate.validator.constraints.URL;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Getter
@@ -46,6 +45,14 @@ public class UserEntity extends AuditableUserEntity{
     
     @Column(columnDefinition = "Date")
     private LocalDateTime birthday;
+    @Column(name = "avatar_url")
+    @URL
+    private String avatarUrl;
+    @Column(name = "cover_url")
+    @URL
+    private String coverUrl;
+    @Column(columnDefinition = "VARCHAR(600)")
+    private String bio;
     @Column(name = "is_dreamer", columnDefinition = "TINYINT(1) DEFAULT 1")
     private boolean isDreamer;
     private String gender;

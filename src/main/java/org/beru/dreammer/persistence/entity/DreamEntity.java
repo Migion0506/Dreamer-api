@@ -52,5 +52,8 @@ public class DreamEntity extends AuditableDreamEntity{
     private UserEntity user;
 
     @OneToMany(mappedBy = "dream", fetch = FetchType.EAGER)
+    private List<TopicEntity> topics;
+
+    @OneToMany(mappedBy = "dream", fetch = FetchType.EAGER)
     private List<GenreEntity> genres;
 }
