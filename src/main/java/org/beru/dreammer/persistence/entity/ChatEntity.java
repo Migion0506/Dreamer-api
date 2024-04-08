@@ -14,6 +14,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
@@ -37,15 +38,8 @@ public class ChatEntity extends AuditableDreamEntity{
     @UuidGenerator
     private String id;
 
-    @ManyToMany
-    @JoinTable(
-        name = "users_chats",
-        joinColumns = @JoinColumn(name = "chat_id"),
-        inverseJoinColumns = @JoinColumn(name = "username"),
-        uniqueConstraints = @UniqueConstraint(columnNames = {"chat_id", "username"})
-    )
-    @JsonIgnore
-    private List<UserEntity> users = new ArrayList<>();
+    @OneToMany(mappedBy = "chat", fetch = FetchType.EAGER)
+    private java.util.List<UserChatEntity> userChats;
 
     @OneToMany(mappedBy = "chat", fetch = FetchType.EAGER)
     private List<MessageEntity> messages;

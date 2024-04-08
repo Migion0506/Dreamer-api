@@ -34,4 +34,7 @@ public class AuthService {
     public UserEntity account() {
         return userService.getAccount();
     }
+    public boolean isValid(String token) {
+        return jwtUtil.isValid(token);
+    }
 }

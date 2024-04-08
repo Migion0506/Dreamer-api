@@ -57,8 +57,8 @@ public class UserEntity extends AuditableUserEntity{
     private boolean isDreamer;
     private String gender;
     
-    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
-    private List<ChatEntity> chats = new ArrayList<>();
+    @ManyToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private List<UserChatEntity> chats;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<DreamEntity> dreams;

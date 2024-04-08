@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 @RestController
 @RequestMapping("/auth")
@@ -23,5 +26,10 @@ public class AuthController {
     public ResponseEntity<String> login(@RequestBody LoginDto loginDto, HttpServletResponse response) {
         return ResponseEntity.ok(service.login(loginDto));
     }
+    @GetMapping("/validate/{token}")
+    public boolean isValid(@PathVariable String token) {
+        return service.isValid(token);
+    }
+    
 
 }
